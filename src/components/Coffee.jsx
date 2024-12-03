@@ -4,7 +4,23 @@
 const Coffee = ({ coffee }) => {
     console.log(coffee);
     const { name, photo, supplier, category, chef, taste, details, _id } = coffee;
-    console.log(name, photo, supplier, category, chef, taste, details, _id);
+
+    const handleDelete = () => {
+        console.log("delete ", _id);
+        fetch(`http://localhost:5000/coffee/${_id}`, {
+            method: "DELETE"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("delete successful", data);
+                if(data.deletedCount>0)
+                {
+                    console.log("deleted");
+                    
+                }
+            })
+    }
+
     return (
         <div className="card bg-base-100 w-96 shadow-xl">
             <figure>
@@ -25,7 +41,7 @@ const Coffee = ({ coffee }) => {
                 <div className="flex justify-center items-center gap-5">
                     <button className="btn">Eye</button>
                     <button className="btn">Edit</button>
-                    <button className="btn">Delete</button>
+                    <button className="btn" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
 
